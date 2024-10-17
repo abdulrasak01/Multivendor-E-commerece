@@ -22,11 +22,6 @@ const Header = () => {
               Categories
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/checkout">
-              My Cart {4}
-            </Link>
-          </li>
           <li  className="text-decoration-none">
             <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -36,10 +31,33 @@ const Header = () => {
               <Dropdown.Menu>
                 <Dropdown.Item><Link to='/customer/login'>Login </Link></Dropdown.Item>
                 <Dropdown.Item><Link to='/customer/register'> Register </Link></Dropdown.Item>
-                <Dropdown.Item><Link to='/customer/login'>Dashboard</Link></Dropdown.Item>
+                <Dropdown.Item><Link to='/customer/dashboard'>Dashboard</Link></Dropdown.Item>
                 <Dropdown.Item><Link to='/customer/login'>Logout</Link></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </li>
+          <li  className="text-decoration-none">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Seller Panel
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item><Link to='/seller/login'>Login </Link></Dropdown.Item>
+                <Dropdown.Item><Link to='/seller/register'> Register </Link></Dropdown.Item>
+                <Dropdown.Item><Link to='/seller/dashboard'>Dashboard</Link></Dropdown.Item>
+                <Dropdown.Item><Link to='/seller/login'>Logout</Link></Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/checkout">
+              New Orders {4}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/checkout">
+              My Cart {4}
+            </Link>
           </li>
         </ul>
       </div>
