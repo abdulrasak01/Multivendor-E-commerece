@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'main.pagination.CustomPagination',
+    'PAGE_SIZE': 5
 }
 
 INSTALLED_APPS = [
