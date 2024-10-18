@@ -45,7 +45,7 @@ const Categories = () => {
             <div className="card">
               <img src={logo} className="card-img-top" alt="..." />
               <div className="card-body">
-                <h4 className="card-title"><Link to='/category/python/1'>{category.title}</Link></h4>
+                <h4 className="card-title" key={category.id}><Link to={`/category/${category.title}/${category.id}`}>{category.title}</Link></h4>
               </div>
               <div className="card-footer">Product downloads: 123</div>
             </div>
@@ -54,7 +54,7 @@ const Categories = () => {
         </div>
       </div>
       <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul className="pagination">
         {links}
     </ul>
     </nav>

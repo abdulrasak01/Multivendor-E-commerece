@@ -66,3 +66,11 @@ class ProductRating(models.Model):
      add_time=models.DateTimeField(auto_now_add=True)
      def __str__(self):
         return f'{self.rating} - {self.reviews}'
+    
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_imgs')
+    image = models.ImageField(upload_to='product_imgs/',null=True)
+    
+    def __str__(self):
+        return self.product.title
+    

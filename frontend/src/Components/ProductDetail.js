@@ -3,8 +3,30 @@ import logo from "../logo.svg";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import SingleProduct from "./SingleProduct";
-
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const ProductDetail = () => {
+  const [product, setProduct] = useState([]);
+  const baseURL = 'http://localhost:8000/api'
+
+  const { product_id } = useParams();
+
+  
+
+  const fetchData = async (url) => {
+    try {
+      const res = (await axios.get(url)).data
+      console.log(res);
+      setProduct(res.results)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(()=>{
+    fetchData(baseURL+`/product/${product_id}/`)
+  },[])
+
   return (
     <section className="container mt-4">
       <div className="row">
@@ -68,7 +90,6 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      {/* Related products */}
       <Carousel controls={false} className=" mt-5 pt-3 carousel-dark">
         <Carousel.Item>
           <div className="row mb-5">
@@ -95,7 +116,6 @@ const ProductDetail = () => {
           </div>
         </Carousel.Item>
       </Carousel>
-      {/* End related products */}
     </section>
   );
 };

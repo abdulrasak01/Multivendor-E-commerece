@@ -12,7 +12,7 @@ const AllProducts = () => {
       const res = (await axios.get(url)).data
       console.log(res);
       
-      setProducts(res.data)
+      setProducts(res.results)
       setTotalResult(res.count)
     } catch (error) {
       console.log(error.message);
@@ -30,10 +30,6 @@ const AllProducts = () => {
   for(let i=1; i<=totalResult; i++) {
     links.push(<li className="page-item"><Link onClick={()=>changeUrl(`/products/?page=${i}`)} className="page-link" to={`/products/?page=${i}`}>{i}</Link></li>)
   }
-
-  console.log(products);
-  console.log(links);
-  console.log(totalResult);
   
   
 
@@ -46,7 +42,7 @@ const AllProducts = () => {
         </h3>
         <div className="row mb-4">
             {products?.map((product) => (
-            <SingleProduct key={product.id} title={product.title}  image={product.image} price={product.price} />
+            <SingleProduct product={product} />
           ))}
         </div>
         <nav aria-label="Page navigation">
