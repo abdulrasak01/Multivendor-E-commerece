@@ -1,8 +1,37 @@
 import React from "react";
 import logo from "../logo.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const [totalResult, setTotalResult] = useState(0)
+  const baseURL = 'http://localhost:8000/api'
+
+  const fetchData = async (url) => {
+    try {
+      const res = (await axios.get(url)).data
+      console.log(res);
+      
+      setCategories(res.data)
+      setTotalResult(res.count)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(()=>{
+    fetchData(baseURL+'/categories/')
+  },[])
+
+  const changeUrl = (url) => {
+    fetchData(baseURL + url)
+  }
+
+  var links = []
+  for(let i=1; i<=totalResult; i++) {
+    links.push(<li className="page-item"><Link onClick={()=>changeUrl(`/categories/?page=${i}`)} className="page-link" to={`/categories/?page=${i}`}>{i}</Link></li>)
+  }
   return (
     <section className="container mt-4">
       <div className="popular-categories">
@@ -11,80 +40,22 @@ const Categories = () => {
         </h3>
         <div className="row">
           {/* product box */}
+          {categories.map((category, index) => (
           <div className="col-12 col-md-3 mb-4">
             <div className="card">
               <img src={logo} className="card-img-top" alt="..." />
               <div className="card-body">
-                <h4 className="card-title"><Link to='/category/python/1'>Category Title</Link></h4>
+                <h4 className="card-title"><Link to='/category/python/1'>{category.title}</Link></h4>
               </div>
               <div className="card-footer">Product downloads: 123</div>
             </div>
-          </div>
-          {/* productbox end */}
-          {/* product box */}
-          <div className="col-12 col-md-3 mb-4">
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title"><Link to='/'>Category Title</Link></h4>
-              </div>
-              <div className="card-footer">Product downloads: 123</div>
-            </div>
-          </div>
-          {/* productbox end */}
-          {/* product box */}
-          <div className="col-12 col-md-3 mb-4">
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title"><Link to='/'>Category Title</Link></h4>
-              </div>
-              <div className="card-footer">Product downloads: 123</div>
-            </div>
-          </div>
-          {/* productbox end */}
-          {/* product box */}
-          <div className="col-12 col-md-3 mb-4">
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title"><Link to='/'>Category Title</Link></h4>
-              </div>
-              <div className="card-footer">Product downloads: 123</div>
-            </div>
-          </div>
-          {/* productbox end */}
-          {/* product box */}
-          <div className="col-12 col-md-3 mb-4">
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title">Product Title</h4>
-              </div>
-              <div className="card-footer">Product downloads: 123</div>
-            </div>
-          </div>
-          {/* productbox end */}
-          {/* product box */}
-          <div className="col-12 col-md-3 mb-4">
-            <div className="card">
-              <img src={logo} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h4 className="card-title">Product Title</h4>
-              </div>
-              <div className="card-footer">Product downloads: 123</div>
-            </div>
-          </div>
+          </div>))}
           {/* productbox end */}
         </div>
       </div>
       <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        {links}
     </ul>
     </nav>
     </section>
