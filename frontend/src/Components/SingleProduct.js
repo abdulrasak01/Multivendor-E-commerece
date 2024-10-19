@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import logo from "../logo.svg";
-const SingleProduct = (props) => {
+const SingleProduct = (props) => {  
   return (
     <div className="col-12 col-md-3 mb-4">
           <div className="card">

@@ -6,10 +6,12 @@ router = routers.DefaultRouter()
 router.register('address',views.CustomerAddressViewSet)
 router.register('product-rating',views.ProductRatingViewSet)
 
+
 urlpatterns = [
     path('vendors/', views.VendorList.as_view() ),
     path('products/', views.ProductList.as_view() ),
     path('product/<int:pk>/',views.ProductDetail.as_view()),
+    path('products/<str:tag>/',views.TagProductList.as_view()),
     path('categories/', views.CategoryList.as_view() ),
     path('category/<int:pk>/',views.CategoryDetail.as_view()),
     path('vendor/<int:pk>/', views.VendorDetail.as_view()),
