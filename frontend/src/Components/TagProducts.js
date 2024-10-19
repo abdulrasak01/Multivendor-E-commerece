@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import SingleProduct from "./SingleProduct";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const AllProducts = () => {
+import { useParams } from "react-router-dom";
+
+const TagProducts = () => {
   const [products, setProducts] = useState([]);
   const [totalResult, setTotalResult] = useState(0)
   const baseURL = 'http://localhost:8000/api'
-
+  const { tag } = useParams();
+  
   const fetchData = async (url) => {
     try {
       const res = (await axios.get(url)).data      
@@ -17,23 +20,21 @@ const AllProducts = () => {
     }
   };
   useEffect(()=>{
-    fetchData(baseURL+'/products/')
+    fetchData(baseURL+`/products/${tag}/`)
   },[])
 
   const changeUrl = (url) => {
-    fetchData(baseURL + url)
+    fetchData(url)
   }
-
+  
   var links = []
   for(let i=1; i<=totalResult; i++) {
-    links.push(<li className="page-item"><Link onClick={()=>changeUrl(`/products/?page=${i}`)} className="page-link" to={`/products/?page=${i}`}>{i}</Link></li>)
+    links.push(<li className="page-item"><Link onClick={()=>changeUrl(baseURL+`/products/${tag}/&page=${i}`)} className="page-link" to={`/products/${tag}/&page=${i}`}>{i}</Link></li>)
   }
-  
-  
 
   return (
     <>
-      <section className="latest-products container mt-5">
+     <section className="latest-products container mt-5">
         <h3 className="mb-4">
           <span className="text-success">All </span>
           Products
@@ -53,4 +54,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default TagProducts;
