@@ -41,6 +41,18 @@ const SellerSideBar = () => {
         Reports
       </Link>
       <Link
+        to="/seller/profile"
+        className="list-group-item list-group-item-action"
+      >
+        profile
+      </Link>
+      <Link
+        to="/seller/password"
+        className="list-group-item list-group-item-action"
+      >
+        Change Password
+      </Link>
+      <Link
         to="/seller/login"
         className="list-group-item list-group-item-action text-danger"
       >

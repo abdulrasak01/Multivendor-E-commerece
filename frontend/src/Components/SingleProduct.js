@@ -1,17 +1,17 @@
 import React from 'react'
-import logo from "../logo.svg";
 import { Link } from 'react-router-dom';
+import logo from "../logo.svg";
 const SingleProduct = (props) => {
   return (
     <div className="col-12 col-md-3 mb-4">
           <div className="card">
-            <Link to='/product/python-timer/123'><img src={logo} className="card-img-top" alt="..." /></Link>
+            <Link to={`/product/${props.product?.title}/${props.product?.id}/`}><img src={logo} className="card-img-top" alt="..." /></Link>
             <div className="card-body">
-            <Link to='/product/python-timer/123'>
-              <h4 className="card-title">{props.title}</h4>
+            <Link to={`/product/${props.product?.title}/${props.product?.id}/`}>
+              <h4 className="card-title">{props.product?.title}</h4>
               </Link>
               <h5>
-                Price: <span className="text-muted">Rs. 500</span>
+                Price: <span className="text-muted">Rs. {props.product?.price}</span>
               </h5>
             </div>
             <div className="card-footer">
