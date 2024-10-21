@@ -28,6 +28,9 @@ const AllProducts = () => {
   for(let i=1; i<=totalResult; i++) {
     links.push(<li className="page-item"><Link onClick={()=>changeUrl(`/products/?page=${i}`)} className="page-link" to={`/products/?page=${i}`}>{i}</Link></li>)
   }
+
+  console.log(products);
+  
   
   
 

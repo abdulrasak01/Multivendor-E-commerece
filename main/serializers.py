@@ -23,7 +23,7 @@ class VendorDetailSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields=['id','category','vendor','title','slug','detail','price']
+        fields=['id','category','vendor','title','slug','detail','price','product_imgs']
         
     def __init__(self, *args, **kwargs):
         super(ProductListSerializer, self).__init__(*args, **kwargs)

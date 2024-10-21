@@ -6,10 +6,12 @@ import SingleProduct from "./SingleProduct";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SingleRelatedProduct from "./SingleRelatedProduct";
 const ProductDetail = () => {
   const [product, setProduct] = useState([]);
   const [productImgs, setProductImgs] = useState([]);
   const [productTags, setProductTags] = useState([]);
+  const [relatedProduct, setRelatedProduct] = useState([]);
   const baseURL = 'http://localhost:8000/api'
 
   const { product_id } = useParams();  
@@ -24,9 +26,23 @@ const ProductDetail = () => {
       console.log(error.message);
     }
   };
+
+  const fetchRelatedData = async (url) => {
+    try {
+      const res = (await axios.get(url)).data
+      setRelatedProduct(res.results)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(()=>{
     fetchData(baseURL+`/product/${product_id}/`)
+    fetchRelatedData(baseURL+`/related-products/${product_id}/`)
   },[])
+
+  console.log(relatedProduct);
+  
   
   const tagLinks = []
   for(let i=0;i<productTags.length;i++){
@@ -79,32 +95,15 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <Carousel controls={false} className=" mt-5 pt-3 carousel-dark">
-        <Carousel.Item>
-          <div className="row mb-5">
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="row mb-5">
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="row mb-5">
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-            <SingleProduct />
-          </div>
-        </Carousel.Item>
-      </Carousel>
+      {relatedProduct&& 
+        <div controls={false} className=" mt-5 pt-3 carousel-dark">
+        <div className="row mb-5">
+          {relatedProduct.map((product)=>(
+            <SingleRelatedProduct product={product}/>
+          ))}
+        </div>
+    </div>
+      }
     </section>
   );
 };
