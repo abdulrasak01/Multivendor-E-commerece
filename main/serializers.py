@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from . import models
+from django.contrib.auth.models import User
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -110,3 +111,8 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(CategoryDetailSerializer, self).__init__(*args, **kwargs)
         # self.Meta.depth = 1
+        
+class UserSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = User
+        fields = ['id','username','password', 'email']

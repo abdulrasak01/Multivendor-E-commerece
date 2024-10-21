@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics,pagination,viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from . import models
 from . import serializers
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 class VendorList(generics.ListCreateAPIView):
     queryset = models.Vendor.objects.all()
@@ -91,6 +96,27 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset= models.productCategory.objects.all()
     serializer_class=serializers.CategoryDetailSerializer
+    
+@api_view(['POST'])
+def signup(request):
+    serializer = serializers.UserSerializer
+    if serializer.is_valid():
+        serializer.save()
+        user = User.objects.get(username=request.data['username'])
+        user.set_password(request.data['password'])
+        user.save()
+        token = Token.objects.create(user=user)
+        return Response({"token":token.key,"user":serializer.data})
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def login(request):
+    return Response({})
+
+@api_view(['POST'])
+def test_token(request):
+    return Response({})
+    
     
 
     
